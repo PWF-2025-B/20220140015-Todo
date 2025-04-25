@@ -14,17 +14,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // ✅ Tambahkan Route untuk Todo
+    // Todo routes
     Route::get('/todo', [TodoController::class, 'index'])->name('todo.index');
+    Route::post('/todo', [TodoController::class, 'store'])->name('todo.store'); // ✅ Tambahkan baris ini
     Route::get('/todo/create', [TodoController::class, 'create'])->name('todo.create');
-    Route::get('/todo/edit/{id}', [TodoController::class, 'edit'])->name('todo.edit');
+    Route::get('/todo/edit', [TodoController::class, 'edit'])->name('todo.edit');
 
-    // ✅ Tambahkan Route untuk User
+    // User routes
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('users.show');
 });
 
 require __DIR__.'/auth.php';

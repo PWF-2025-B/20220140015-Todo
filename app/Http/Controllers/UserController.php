@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\User; // Tambahkan baris ini
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all(); // Mengambil semua data User
+        $users = User::where('id', '!=', 1)
+            ->orderBy('name')
+            ->paginate(10);
+
         return view('user.index', compact('users'));
     }
 }
