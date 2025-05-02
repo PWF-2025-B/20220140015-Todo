@@ -30,13 +30,11 @@ class DatabaseSeeder extends Seeder
             'user_id' => $admin->id,
         ]);
 
-        // 4. Buat todo untuk user biasa ➜ 400 todo
+        // 4. Buat todo untuk user biasa ➜ 400 todo (4 masing-masing user)
         foreach ($users as $user) {
             Todo::factory(4)->create([
                 'user_id' => $user->id,
             ]);
         }
-
-        
     }
 }
