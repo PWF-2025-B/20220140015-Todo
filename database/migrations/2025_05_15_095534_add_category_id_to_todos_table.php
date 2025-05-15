@@ -6,17 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->renameColumn('completed', 'is_complete');
+            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete()->after('id');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->renameColumn('is_complete', 'completed');
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
         });
     }
 };
